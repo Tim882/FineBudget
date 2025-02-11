@@ -19,6 +19,7 @@ string connection = builder.Configuration.GetConnectionString("DefaultConnection
 // Add services to the container.
 builder.Services.AddAutoMapper(typeof(BudgetProfile));
 builder.Services.AddControllers();
+builder.Services.AddExceptionHandler<ExceptionHandler>();
 builder.Services.AddDbContext<BudgetContext>(options => options.UseNpgsql(connection));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddEndpointsApiExplorer();
