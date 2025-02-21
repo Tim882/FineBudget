@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using System.Web.Http.ExceptionHandling;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace FineBudget
 {
