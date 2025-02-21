@@ -17,7 +17,7 @@ namespace FineBudget.UnitOfWork
         Task BeginTransactionAsync();
         Task CommitAsync();
 
-        Task SaveAsync();
+        Task<int> SaveAsync();
     }
 }
 

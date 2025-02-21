@@ -26,7 +26,6 @@
   <ItemGroup>
     <Folder Include="Repositories\" />
     <Folder Include="UnitOfWork\" />
-    <Folder Include="Services\" />
     <Folder Include="Healthcheck\" />
   </ItemGroup>
   <ItemGroup>

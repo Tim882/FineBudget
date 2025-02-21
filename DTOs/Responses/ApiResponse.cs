@@ -3,9 +3,10 @@ namespace DTOs.Responses
 {
     public class ApiResponse<T>
     {
-        public int StatusCode { get; set; }
-        public string Message { get; set; }
-        public T Data { get; set; }
+        public int ResultCode { get; set; } = 0;
+        public bool Success { get; set; } = true;
+        public string Message { get; set; } = string.Empty;
+        public T? Data { get; set; }
     }
 }
 

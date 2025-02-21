@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DTOs;
 using DTOs.Responses;
+using FineBudget.Services.Interfaces;
 using FineBudget.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
 using Models.DbModels.MainModels;
@@ -17,110 +18,133 @@ namespace FineBudget.Controllers
     [Route("api/[controller]")]
     public class AccountsController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
         private readonly ILogger<AccountsController> _logger;
+        private readonly IAccountDataService _accountDataService;
 
-        public AccountsController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<AccountsController> logger)
+        public AccountsController(
+            ILogger<AccountsController> logger,
+            IAccountDataService accountDataService)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _logger = logger;
+            _accountDataService = accountDataService;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            ApiResponse<List<AccountResponseDto>> response = new ApiResponse<List<AccountResponseDto>>();
+
             try
             {
                 //var result = await _unitOfWork.AccountRepository.GetAllAsync();
 
-                ApiResponse<List<Account>> response = new ApiResponse<List<Account>>();
-
                 return Ok(response);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, ex.Message);
+
+                response.Success = false;
+                response.Message = ex.Message;
+
+                return StatusCode(500, response);
             }
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(long id)
+        public async Task<IActionResult> Get(Guid id)
         {
+            ApiResponse<AccountResponseDto> response = new ApiResponse<AccountResponseDto>();
+
             try
             {
-                var result = await _unitOfWork.AccountRepository.GetAsync(id);
+                var result = await _accountDataService.GetByIdAsync(id);
 
                 if (result == null)
                     return NotFound();
 
-                AccountResponseDto response = _mapper.Map<AccountResponseDto>(result);
+                response.Data = result;
 
                 return Ok(response);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, ex.Message);
+
+                response.Success = false;
+                response.Message = ex.Message;
+
+                return StatusCode(500, response);
             }
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] AccountRequestDto dto)
         {
+            ApiResponse<AccountResponseDto> response = new ApiResponse<AccountResponseDto>();
+
             try
             {
-                Account account = _mapper.Map<Account>(dto);
+                var result = await _accountDataService.CreateAsync(dto);
 
-                await _unitOfWork.AccountRepository.CreateAsync(account);
-                await _unitOfWork.SaveAsync();
+                response.Data = result;
 
-                return Ok();
+                return Ok(response);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, ex.Message);
+
+                response.Success = false;
+                response.Message = ex.Message;
+
+                return StatusCode(500, response);
             }
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(long id, [FromBody] AccountRequestDto dto)
+        public async Task<IActionResult> Update(Guid id, [FromBody] AccountRequestDto dto)
         {
+            ApiResponse<AccountResponseDto> response = new ApiResponse<AccountResponseDto>();
+
             try
             {
-                Account account = await _unitOfWork.AccountRepository.GetAsync(id);
+                var result = await _accountDataService.UpdateAsync(id, dto);
+                
+                response.Data = result;
 
-                _mapper.Map(dto, account);
-
-                _unitOfWork.AccountRepository.Update(account);
-                await _unitOfWork.SaveAsync();
-
-                return Ok();
+                return Ok(response);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, ex.Message);
+
+                response.Success = false;
+                response.Message = ex.Message;
+
+                return StatusCode(500, response);
             }
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(long Id)
+        public async Task<IActionResult> Delete(Guid id)
         {
+            ApiResponse<bool> response = new ApiResponse<bool>();
+
             try
             {
-                await _unitOfWork.AccountRepository.DeleteAsync(Id);
-                await _unitOfWork.SaveAsync();
+                response.Data = await _accountDataService.DeleteAsync(id);
 
-                return Ok();
+                return Ok(response);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, ex.Message);
+
+                response.Success = false;
+                response.Message = ex.Message;
+
+                return StatusCode(500, response);
             }
         }
     }

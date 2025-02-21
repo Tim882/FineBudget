@@ -72,9 +72,9 @@ namespace FineBudget.UnitOfWork
             _context = context;
 		}
 
-        public Task SaveAsync()
+        public async Task<int> SaveAsync()
         {
-            return _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync();
         }
 
         protected virtual void Dispose(bool disposing)

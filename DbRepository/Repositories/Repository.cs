@@ -14,9 +14,9 @@ public class Repository<T> : IRepository<T>  where T : class
         _context = context;
     }
 
-    public virtual async Task<T> GetAsync(long Id)
+    public virtual async Task<T> GetAsync(Guid id)
     {
-        return await _context.Set<T>().FindAsync(Id);
+        return await _context.Set<T>().FindAsync(id);
     }
 
     public virtual async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>> predicate)
@@ -24,22 +24,24 @@ public class Repository<T> : IRepository<T>  where T : class
         return await _context.Set<T>().AsNoTracking().Where(predicate).ToListAsync();
     }
 
-    public virtual async Task CreateAsync(T entity)
+    public virtual async Task<T> CreateAsync(T entity)
     {
-        await _context.Set<T>().AddAsync(entity);
+        var result = await _context.Set<T>().AddAsync(entity);
+
+        return result.Entity;
     }
 
-    public virtual async Task DeleteAsync(long Id)
+    public virtual async Task DeleteAsync(Guid id)
     {
-        T entity = await _context.Set<T>().FindAsync(Id);
+        T entity = await _context.Set<T>().FindAsync(id);
 
         if (entity != null)
             _context.Set<T>().Remove(entity);
     }
 
-    public virtual void Update(T entity)
+    public virtual Task<T> Update(T entity)
     {
-        _context.Set<T>().Update(entity);
+        return Task.FromResult(_context.Set<T>().Update(entity).Entity);
     }
 }
 

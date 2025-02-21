@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using Models.DbModels.Enums;
 using Models.DbModels.MainModels;
 using AutoMapper;
+using FineBudget.Services.Interfaces;
+using DTOs.Responses;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,20 +19,20 @@ namespace FineBudget.Controllers
     [Route("/api/[controller]")]
     public class LiabilitiesController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
+        private readonly ILiabilityDataService _liabilityDataService;
         private readonly ILogger<LiabilitiesController> _logger;
 
-        public LiabilitiesController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<LiabilitiesController> logger)
+        public LiabilitiesController(ILogger<LiabilitiesController> logger, ILiabilityDataService liabilityDataService)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
+            _liabilityDataService = liabilityDataService;
             _logger = logger;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            ApiResponse<List<LiabilityResponseDto>> response = new ApiResponse<List<LiabilityResponseDto>>();
+
             try
             {
                 //var result = await _unitOfWork.LiabilityRepository.GetAllAsync();
@@ -40,13 +42,19 @@ namespace FineBudget.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, ex.Message);
+
+                response.Success = false;
+                response.Message = ex.Message;
+
+                return StatusCode(500, response);
             }
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(long id)
+        public async Task<IActionResult> Get(Guid id)
         {
+            ApiResponse<LiabilityResponseDto> response = new ApiResponse<LiabilityResponseDto>();
+
             try
             {
                 var result = await _unitOfWork.LiabilityRepository.GetAsync(id);
@@ -61,13 +69,19 @@ namespace FineBudget.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, ex.Message);
+
+                response.Success = false;
+                response.Message = ex.Message;
+
+                return StatusCode(500, response);
             }
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] LiabilityRequestDto dto)
         {
+            ApiResponse<LiabilityResponseDto> response = new ApiResponse<LiabilityResponseDto>();
+
             try
             {
                 Liability liability = _mapper.Map<Liability>(dto);
@@ -80,13 +94,19 @@ namespace FineBudget.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, ex.Message);
+
+                response.Success = false;
+                response.Message = ex.Message;
+
+                return StatusCode(500, response);
             }
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(long id, [FromBody] LiabilityRequestDto dto)
+        public async Task<IActionResult> Update(Guid id, [FromBody] LiabilityRequestDto dto)
         {
+            ApiResponse<LiabilityResponseDto> response = new ApiResponse<LiabilityResponseDto>();
+
             try
             {
                 Liability liability = await _unitOfWork.LiabilityRepository.GetAsync(id);
@@ -101,13 +121,19 @@ namespace FineBudget.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, ex.Message);
+
+                response.Success = false;
+                response.Message = ex.Message;
+
+                return StatusCode(500, response);
             }
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(long id)
+        public async Task<IActionResult> Delete(Guid id)
         {
+            ApiResponse<bool> response = new ApiResponse<bool>();
+
             try
             {
                 await _unitOfWork.LiabilityRepository.DeleteAsync(id);
@@ -118,7 +144,11 @@ namespace FineBudget.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, ex.Message);
+
+                response.Success = false;
+                response.Message = ex.Message;
+
+                return StatusCode(500, response);
             }
         }
     }

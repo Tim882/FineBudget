@@ -9,6 +9,8 @@ using Models.DbModels;
 using Models.DbModels.Enums;
 using Models.DbModels.MainModels;
 using AutoMapper;
+using FineBudget.Services.Interfaces;
+using DTOs.Responses;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,20 +20,20 @@ namespace FineBudget.Controllers
     [Route("/api/[controller]")]
     public class IncomesController : Controller
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
+        private readonly IIncomeDataService _incomeDataService;
         private readonly ILogger<IncomesController> _logger;
 
-        public IncomesController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<IncomesController> logger)
+        public IncomesController(ILogger<IncomesController> logger, IIncomeDataService incomeDataService)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
+            _incomeDataService = incomeDataService;
             _logger = logger;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
+            ApiResponse<List<IncomeResponseDto>> response = new ApiResponse<List<IncomeResponseDto>>();
+
             try
             {
                 //var result = await _unitOfWork.IncomeRepository.GetAllAsync();
@@ -41,15 +43,21 @@ namespace FineBudget.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, ex.Message);
+
+                response.Success = false;
+                response.Message = ex.Message;
+
+                return StatusCode(500, response);
             }
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(long id)
+        public async Task<IActionResult> Get(Guid id)
         {
             try
             {
+                ApiResponse<IncomeResponseDto> response = new ApiResponse<IncomeResponseDto>();
+
                 var result = await _unitOfWork.IncomeRepository.GetAsync(id);
 
                 if (result == null)
@@ -62,13 +70,19 @@ namespace FineBudget.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, ex.Message);
+
+                response.Success = false;
+                response.Message = ex.Message;
+
+                return StatusCode(500, response);
             }
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] IncomeRequestDto dto)
         {
+            ApiResponse<IncomeResponseDto> response = new ApiResponse<IncomeResponseDto>();
+
             try
             {
                 Income income = _mapper.Map<Income>(dto);
@@ -81,13 +95,19 @@ namespace FineBudget.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, ex.Message);
+
+                response.Success = false;
+                response.Message = ex.Message;
+
+                return StatusCode(500, response);
             }
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(long id, [FromBody] IncomeRequestDto dto)
+        public async Task<IActionResult> Update(Guid id, [FromBody] IncomeRequestDto dto)
         {
+            ApiResponse<IncomeResponseDto> response = new ApiResponse<IncomeResponseDto>();
+
             try
             {
                 Income income = await _unitOfWork.IncomeRepository.GetAsync(id);
@@ -105,13 +125,19 @@ namespace FineBudget.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, ex.Message);
+
+                response.Success = false;
+                response.Message = ex.Message;
+
+                return StatusCode(500, response);
             }
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(long id)
+        public async Task<IActionResult> Delete(Guid id)
         {
+            ApiResponse<bool> response = new ApiResponse<bool>();
+
             try
             {
                 await _unitOfWork.IncomeRepository.DeleteAsync(id);
@@ -122,7 +148,11 @@ namespace FineBudget.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return StatusCode(500, ex.Message);
+
+                response.Success = false;
+                response.Message = ex.Message;
+
+                return StatusCode(500, response);
             }
         }
     }
