@@ -18,7 +18,7 @@ namespace FileHandler
             {
                 var configuration = new CsvConfiguration(CultureInfo.InvariantCulture)
                 {
-                    Delimiter = ";",
+                    Delimiter = ",",
                     Comment = '%'
                 };
 

@@ -15,7 +15,7 @@ namespace FineBudget.Services.Implementations
 
         public async Task<bool> ImportFromMoneyFlowCsv()
         {
-            string fileNameWithPath = "C:\\Users\\1\\Downloads\\Telegram Desktop\\Money-Flow-Transactions.csv";
+            string fileNameWithPath = "";
 
             var transactions = await _fileReader.ReadFileAsync<MoneyFlowTransactionItem>(fileNameWithPath);
 
