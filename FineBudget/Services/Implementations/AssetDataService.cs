@@ -20,12 +20,14 @@ namespace FineBudget.Services.Implementations
 
         public async Task<AssetResponseDto> CreateAsync(AssetRequestDto dto)
         {
-            throw new NotImplementedException();
-
             Asset asset = _mapper.Map<Asset>(dto);
 
             await _unitOfWork.AssetRepository.CreateAsync(asset);
             await _unitOfWork.SaveAsync();
+
+            var responseDto = _mapper.Map<AssetResponseDto>(asset);
+
+            return responseDto;
         }
 
         public async Task<bool> DeleteAsync(Guid id)

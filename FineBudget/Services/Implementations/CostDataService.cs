@@ -31,7 +31,7 @@ namespace FineBudget.Services.Implementations
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-            _unitOfWork.CostRepository.DeleteAsync(id);
+            await _unitOfWork.CostRepository.DeleteAsync(id);
             var result = await _unitOfWork.SaveAsync();
 
             return result > 0;
