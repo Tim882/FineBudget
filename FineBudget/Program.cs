@@ -7,7 +7,9 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 using System.Text;
 using System.Text.Json;
 using DTOs.Profiles;
-using Microsoft.AspNetCore.Diagnostics;
+using FineBudget.Services.Interfaces;
+using FineBudget.Services.Implementations;
+using FileHandler;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,13 @@ builder.Services.AddControllers();
 builder.Services.AddExceptionHandler<ExceptionHandler>();
 builder.Services.AddDbContext<BudgetContext>(options => options.UseNpgsql(connection));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IAssetDataService, AssetDataService>();
+builder.Services.AddScoped<IAccountDataService, AccountDataService>();
+builder.Services.AddScoped<ICostDataService, CostDataService>();
+builder.Services.AddScoped<IImportDataService, ImportDataService>();
+builder.Services.AddScoped<IIncomeDataService, IncomeDataService>();
+builder.Services.AddScoped<ILiabilityDataService, LiabilityDataService>();
+builder.Services.AddScoped<IFileReader, CsvFileReader>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks().AddCheck<LivenessHealthCheck>("live", tags: new[] { "Liveness" });

@@ -13,12 +13,14 @@ namespace DbRepository.Services
             _context = context;
         }
 
-        public virtual async Task CreateAsync(T entity)
+        public virtual async Task<T> CreateAsync(T entity)
         {
-            await _context.Set<T>().AddAsync(entity);
+            var result = await _context.Set<T>().AddAsync(entity);
+
+            return result.Entity;
         }
 
-        public virtual async Task DeleteAsync(long Id)
+        public virtual async Task DeleteAsync(Guid Id)
         {
             T entity = await _context.Set<T>().FindAsync(Id);
 
@@ -26,9 +28,9 @@ namespace DbRepository.Services
                 _context.Set<T>().Remove(entity);
         }
 
-        public virtual void Update(T entity)
+        public virtual async Task<T> Update(T entity)
         {
-            _context.Set<T>().Update(entity);
+            return await Task.FromResult(_context.Set<T>().Update(entity).Entity);
         }
     }
 }

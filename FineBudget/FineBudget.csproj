@@ -35,5 +35,7 @@
     <ProjectReference Include="..\DTOs\DTOs.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\ErrorsHandlers\ErrorsHandlers.csproj" />
+    <ProjectReference Include="..\FileHandler\FileHandler.csproj" />
   </ItemGroup>
 </Project>

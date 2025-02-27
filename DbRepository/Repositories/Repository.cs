@@ -39,9 +39,9 @@ public class Repository<T> : IRepository<T>  where T : class
             _context.Set<T>().Remove(entity);
     }
 
-    public virtual Task<T> Update(T entity)
+    public virtual async Task<T> Update(T entity)
     {
-        return Task.FromResult(_context.Set<T>().Update(entity).Entity);
+        return await Task.FromResult(_context.Set<T>().Update(entity).Entity);
     }
 }
 

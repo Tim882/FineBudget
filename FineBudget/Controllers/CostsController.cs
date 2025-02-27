@@ -103,7 +103,9 @@ namespace FineBudget.Controllers
 
             try
             {
-                bool updated = await _costDataService.UpdateAsync(id, dto);
+                var result = await _costDataService.UpdateAsync(id, dto);
+
+                response.Data = result;
 
                 return Ok(response);
             }

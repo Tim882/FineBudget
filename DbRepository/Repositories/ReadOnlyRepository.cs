@@ -14,7 +14,7 @@ namespace DbRepository.Services
             _context = context;
         }
 
-        public virtual async Task<T> GetAsync(long Id)
+        public virtual async Task<T> GetAsync(Guid Id)
         {
             return await _context.Set<T>().FindAsync(Id);
         }
