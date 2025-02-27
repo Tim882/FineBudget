@@ -52,12 +52,12 @@ namespace FineBudget.Controllers
 
             try
             {
-                var result = await _unitOfWork.CostRepository.GetAsync(id);
+                var result = await _costDataService.GetByIdAsync(id);
 
                 if (result == null)
                     return NotFound();
 
-                CostResponseDto response = _mapper.Map<CostResponseDto>(result);
+                response.Data = result;
 
                 return Ok(response);
             }
@@ -79,12 +79,11 @@ namespace FineBudget.Controllers
 
             try
             {
-                Cost cost = _mapper.Map<Cost>(dto);
+                var result = await _costDataService.CreateAsync(dto);
 
-                await _unitOfWork.CostRepository.CreateAsync(cost);
-                await _unitOfWork.SaveAsync();
+                response.Data = result;
 
-                return Ok();
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -104,17 +103,9 @@ namespace FineBudget.Controllers
 
             try
             {
-                Cost cost = await _unitOfWork.CostRepository.GetAsync(id);
+                bool updated = await _costDataService.UpdateAsync(id, dto);
 
-                if (cost == null)
-                    return NotFound();
-
-                _mapper.Map(dto, cost);
-
-                _unitOfWork.CostRepository.Update(cost);
-                await _unitOfWork.SaveAsync();
-
-                return Ok();
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -134,10 +125,9 @@ namespace FineBudget.Controllers
 
             try
             {
-                await _unitOfWork.CostRepository.DeleteAsync(id);
-                await _unitOfWork.SaveAsync();
+                bool result = await _costDataService.DeleteAsync(id);
 
-                return Ok();
+                return Ok(response);
             }
             catch (Exception ex)
             {

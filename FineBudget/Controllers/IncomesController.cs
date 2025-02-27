@@ -54,16 +54,16 @@ namespace FineBudget.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
+            ApiResponse<IncomeResponseDto> response = new ApiResponse<IncomeResponseDto>();
+
             try
             {
-                ApiResponse<IncomeResponseDto> response = new ApiResponse<IncomeResponseDto>();
-
-                var result = await _unitOfWork.IncomeRepository.GetAsync(id);
+                var result = await _incomeDataService.GetByIdAsync(id);
 
                 if (result == null)
                     return NotFound();
 
-                IncomeResponseDto response = _mapper.Map<IncomeResponseDto>(result);
+                response.Data = result;
 
                 return Ok(response);
             }
@@ -85,12 +85,11 @@ namespace FineBudget.Controllers
 
             try
             {
-                Income income = _mapper.Map<Income>(dto);
+                var result = await _incomeDataService.CreateAsync(dto);
 
-                await _unitOfWork.IncomeRepository.CreateAsync(income);
-                await _unitOfWork.SaveAsync();
+                response.Data = result;
 
-                return Ok();
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -110,17 +109,11 @@ namespace FineBudget.Controllers
 
             try
             {
-                Income income = await _unitOfWork.IncomeRepository.GetAsync(id);
+                var result = await _incomeDataService.UpdateAsync(id, dto);
 
-                if (income == null)
-                    return NotFound();
+                response.Data = result;
 
-                _mapper.Map(dto, income);
-
-                _unitOfWork.IncomeRepository.Update(income);
-                await _unitOfWork.SaveAsync();
-
-                return Ok();
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -140,10 +133,11 @@ namespace FineBudget.Controllers
 
             try
             {
-                await _unitOfWork.IncomeRepository.DeleteAsync(id);
-                await _unitOfWork.SaveAsync();
+                var result = await _incomeDataService.DeleteAsync(id);
 
-                return Ok();
+                response.Data = result;
+
+                return Ok(response);
             }
             catch (Exception ex)
             {

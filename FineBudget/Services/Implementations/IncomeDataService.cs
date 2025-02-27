@@ -2,6 +2,7 @@
 using DTOs.Requests;
 using FineBudget.Services.Interfaces;
 using FineBudget.UnitOfWork;
+using Models.DbModels.MainModels;
 
 namespace FineBudget.Services.Implementations
 {
@@ -16,19 +17,33 @@ namespace FineBudget.Services.Implementations
             _mapper = mapper;
         }
 
-        public async Task<bool> CreateAsync(IncomeRequestDto account)
+        public async Task<IncomeResponseDto> CreateAsync(IncomeRequestDto dto)
         {
-            throw new NotImplementedException();
+            var income = _mapper.Map<Income>(dto);
+
+            var result = await _unitOfWork.IncomeRepository.CreateAsync(income);
+            await _unitOfWork.SaveAsync();
+
+            var responseDto = _mapper.Map<IncomeResponseDto>(result);
+
+            return responseDto;
         }
 
         public async Task<bool> DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            await _unitOfWork.IncomeRepository.DeleteAsync(id);
+            var result = await _unitOfWork.SaveAsync();
+
+            return result > 0;
         }
 
         public async Task<IncomeResponseDto> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var income = await _unitOfWork.IncomeRepository.GetAsync(id);
+
+            var responseDto = _mapper.Map<IncomeResponseDto>(income);
+
+            return responseDto;
         }
 
         public async Task<List<IncomeResponseDto>> GetAllAsync()
@@ -36,9 +51,17 @@ namespace FineBudget.Services.Implementations
             throw new NotImplementedException();
         }
 
-        public async Task<bool> UpdateAsync(Guid id, IncomeRequestDto account)
+        public async Task<IncomeResponseDto> UpdateAsync(Guid id, IncomeRequestDto dto)
         {
-            throw new NotImplementedException();
+            var income = _mapper.Map<Income>(dto);
+            income.Id = id;
+
+            var result = await _unitOfWork.IncomeRepository.Update(income);
+            await _unitOfWork.SaveAsync();
+
+            var responseDto = _mapper.Map<IncomeResponseDto>(result);
+
+            return responseDto;
         }
     }
 }

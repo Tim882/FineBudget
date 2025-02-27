@@ -7,8 +7,8 @@ namespace FineBudget.Services.Interfaces
     {
         public Task<List<IncomeResponseDto>> GetAllAsync();
         public Task<IncomeResponseDto> GetByIdAsync(Guid id);
-        public Task<IncomeResponseDto> CreateAsync(IncomeRequestDto account);
-        public Task<IncomeResponseDto> UpdateAsync(Guid id, IncomeRequestDto account);
+        public Task<IncomeResponseDto> CreateAsync(IncomeRequestDto dto);
+        public Task<IncomeResponseDto> UpdateAsync(Guid id, IncomeRequestDto dto);
         public Task<bool> DeleteAsync(Guid id);
     }
 }

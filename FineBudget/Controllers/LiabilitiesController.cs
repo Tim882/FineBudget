@@ -57,12 +57,12 @@ namespace FineBudget.Controllers
 
             try
             {
-                var result = await _unitOfWork.LiabilityRepository.GetAsync(id);
+                var result = await _liabilityDataService.GetByIdAsync(id);
 
                 if (result == null)
                     return NotFound();
 
-                LiabilityResponseDto response = _mapper.Map<LiabilityResponseDto>(result);
+                response.Data = result;
 
                 return Ok(response);
             }
@@ -84,12 +84,11 @@ namespace FineBudget.Controllers
 
             try
             {
-                Liability liability = _mapper.Map<Liability>(dto);
+                var result = await _liabilityDataService.CreateAsync(dto);
 
-                await _unitOfWork.LiabilityRepository.CreateAsync(liability);
-                await _unitOfWork.SaveAsync();
+                response.Data = result;
 
-                return Ok();
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -109,14 +108,11 @@ namespace FineBudget.Controllers
 
             try
             {
-                Liability liability = await _unitOfWork.LiabilityRepository.GetAsync(id);
+                var result = await _liabilityDataService.UpdateAsync(id, dto);
 
-                _mapper.Map(dto, liability);
+                response.Data = result;
 
-                _unitOfWork.LiabilityRepository.Update(liability);
-                await _unitOfWork.SaveAsync();
-
-                return Ok();
+                return Ok(response);
             }
             catch (Exception ex)
             {
@@ -136,10 +132,11 @@ namespace FineBudget.Controllers
 
             try
             {
-                await _unitOfWork.LiabilityRepository.DeleteAsync(id);
-                await _unitOfWork.SaveAsync();
+                var result = await _liabilityDataService.DeleteAsync(id);
 
-                return Ok();
+                response.Data = result;
+
+                return Ok(response);
             }
             catch (Exception ex)
             {
