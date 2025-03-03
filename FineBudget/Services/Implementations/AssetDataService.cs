@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using DbRepository;
+using DTOs;
 using DTOs.Requests;
 using DTOs.Responses;
 using FineBudget.Services.Interfaces;
@@ -48,7 +50,18 @@ namespace FineBudget.Services.Implementations
 
         public async Task<List<AssetResponseDto>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var result = await _unitOfWork.AssetRepository.GetAllAsync(PredicateBuilder.True<Asset>());
+
+            var responseDto = new List<AssetResponseDto>();
+
+            foreach (var item in result)
+            {
+                var responseItem = _mapper.Map<AssetResponseDto>(item);
+
+                responseDto.Add(responseItem);
+            }
+
+            return responseDto;
         }
 
         public async Task<AssetResponseDto> UpdateAsync(Guid id, AssetRequestDto dto)

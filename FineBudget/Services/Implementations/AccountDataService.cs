@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DbRepository;
 using DTOs;
 using FineBudget.Services.Interfaces;
 using FineBudget.UnitOfWork;
@@ -10,6 +11,7 @@ namespace FineBudget.Services.Implementations
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly Func<Account, bool> True;
 
         public AccountDataService(IUnitOfWork unitOfWork, IMapper mapper)
         {
@@ -48,9 +50,16 @@ namespace FineBudget.Services.Implementations
 
         public async  Task<List<AccountResponseDto>> GetAllAsync()
         {
-            //var result = await _unitOfWork.AccountRepository.GetAllAsync();
+            var result = await _unitOfWork.AccountRepository.GetAllAsync(PredicateBuilder.True<Account>());
 
             var responseDto = new List<AccountResponseDto>();
+
+            foreach (var item in result)
+            {
+                var responseItem = _mapper.Map<AccountResponseDto>(item);
+
+                responseDto.Add(responseItem);
+            }
 
             return responseDto;
         }

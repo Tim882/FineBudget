@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DbRepository;
 using DTOs.Requests;
 using FineBudget.Services.Interfaces;
 using FineBudget.UnitOfWork;
@@ -48,7 +49,18 @@ namespace FineBudget.Services.Implementations
 
         public async Task<List<LiabilityResponseDto>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            var result = await _unitOfWork.LiabilityRepository.GetAllAsync(PredicateBuilder.True<Liability>());
+
+            var responseDto = new List<LiabilityResponseDto>();
+
+            foreach (var item in result)
+            {
+                var responseItem = _mapper.Map<LiabilityResponseDto>(item);
+
+                responseDto.Add(responseItem);
+            }
+
+            return responseDto;
         }
 
         public async Task<LiabilityResponseDto> UpdateAsync(Guid id, LiabilityRequestDto dto)
