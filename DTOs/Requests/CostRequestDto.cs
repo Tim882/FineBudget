@@ -12,8 +12,8 @@ namespace DTOs.Requests
         public string TransactionNumber { get; set; } = string.Empty;
         public bool Required { get; set; }
         public CostCategory CostCategory { get; set; }
-        public long AccountId { get; set; }
-        public long? BalanceItemId { get; set; }
+        public Guid AccountId { get; set; }
+        public Guid? BalanceItemId { get; set; }
     }
 }
 

@@ -36,7 +36,9 @@ namespace FineBudget.Controllers
 
             try
             {
-                //var result = await _unitOfWork.AccountRepository.GetAllAsync();
+                var result = await _accountDataService.GetAllAsync();
+
+                response.Data = result;
 
                 return Ok(response);
             }

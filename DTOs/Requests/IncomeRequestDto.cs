@@ -11,8 +11,8 @@ namespace DTOs.Requests
         public decimal Value { get; set; }
         public string TransactionNumber { get; set; } = string.Empty;
         public IncomeCategory IncomeCategory { get; set; }
-        public long AccountId { get; set; }
-        public long? BalanceItemId { get; set; }
+        public Guid AccountId { get; set; }
+        public Guid? BalanceItemId { get; set; }
     }
 }
 

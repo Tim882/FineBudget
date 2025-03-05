@@ -30,9 +30,11 @@ namespace FineBudget.Controllers
 
             try
             {
-                //var result = await _unitOfWork.CostRepository.GetAllAsync();
+                var result = await _costDataService.GetAllAsync();
 
-                return Ok();
+                response.Data = result;
+
+                return Ok(response);
             }
             catch (Exception ex)
             {
