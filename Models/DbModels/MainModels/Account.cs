@@ -8,7 +8,8 @@ namespace Models.DbModels.MainModels
 		public string Title { get; set; }
 		public decimal Balance { get; set; }
 
-		public List<Operation> Operations { get; set; }
+		public List<Income> Incomes { get; set; }
+		public List<Cost> Costs { get; set; }
 	}
 }
 

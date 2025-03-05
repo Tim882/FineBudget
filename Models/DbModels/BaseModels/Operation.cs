@@ -3,7 +3,7 @@ using Models.DbModels.MainModels;
 
 namespace Models.DbModels.BaseModels
 {
-	public class Operation: BaseEntity
+	public abstract class Operation: BaseEntity
 	{
 		public DateTime Date { get; set; }
 		public string Title { get; set; }
@@ -14,8 +14,11 @@ namespace Models.DbModels.BaseModels
 		public Guid AccountId { get; set; }
 		public Account Account { get; set; }
 
-		public Guid? BalanceItemId { get; set; }
-		public BalanceItem? BalanceItem { get; set; }
-	}
+		public Guid? AssetId { get; set; }
+		public Asset? Asset { get; set; }
+
+        public Guid? LiabilityId { get; set; }
+        public Liability? Liability { get; set; }
+    }
 }
 
