@@ -11,10 +11,10 @@ namespace Models.DbModels.BaseModels
 		public decimal Value { get; set; }
 		public string TransactionNumber { get; set; } = string.Empty;
 
-		public long AccountId { get; set; }
+		public Guid AccountId { get; set; }
 		public Account Account { get; set; }
 
-		public long? BalanceItemId { get; set; }
+		public Guid? BalanceItemId { get; set; }
 		public BalanceItem? BalanceItem { get; set; }
 	}
 }
