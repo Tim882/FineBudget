@@ -88,7 +88,9 @@ namespace FineBudget.Controllers
             {
                 var result = await _assetDataService.CreateAsync(dto);
 
-                return Ok();
+                response.Data = result;
+
+                return Ok(response);
             }
             catch (Exception ex)
             {

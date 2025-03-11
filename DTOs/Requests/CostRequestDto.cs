@@ -13,7 +13,6 @@ namespace DTOs.Requests
         public bool Required { get; set; }
         public CostCategory CostCategory { get; set; }
         public Guid AccountId { get; set; }
-        public Guid? BalanceItemId { get; set; }
     }
 }
 

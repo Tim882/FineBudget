@@ -41,7 +41,7 @@ namespace FineBudget.Services.Implementations
 
         public async Task<AssetResponseDto> GetByIdAsync(Guid id)
         {
-            var result = _unitOfWork.AssetRepository.GetAsync(id);
+            var result = await _unitOfWork.AssetRepository.GetAsync(id);
 
             AssetResponseDto response = _mapper.Map<AssetResponseDto>(result);
 
