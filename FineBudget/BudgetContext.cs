@@ -9,8 +9,6 @@ namespace FineBudget
 {
 	public class BudgetContext: DbContext
 	{
-		public DbSet<BalanceItem> BalanceItems { get; set; }
-		public DbSet<Operation> Operations { get; set; }
 		public DbSet<Account> Accounts { get; set; }
 		public DbSet<Asset> Assets { get; set; }
 		public DbSet<Cost> Costs { get; set; }
@@ -23,8 +21,6 @@ namespace FineBudget
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<BalanceItem>().UseTptMappingStrategy();
-            modelBuilder.Entity<Operation>().UseTptMappingStrategy();
 
             var dateTimeConverter = new ValueConverter<DateTime, DateTime>(
                 v => v.ToUniversalTime(),
