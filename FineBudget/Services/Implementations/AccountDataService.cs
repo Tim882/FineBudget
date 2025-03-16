@@ -2,7 +2,9 @@
 using DbRepository;
 using DTOs;
 using FineBudget.Services.Interfaces;
+using FineBudget.Services.Specifications;
 using FineBudget.UnitOfWork;
+using Microsoft.EntityFrameworkCore;
 using Models.DbModels.MainModels;
 
 namespace FineBudget.Services.Implementations
@@ -50,7 +52,9 @@ namespace FineBudget.Services.Implementations
 
         public async  Task<List<AccountResponseDto>> GetAllAsync()
         {
-            var result = await _unitOfWork.AccountRepository.GetAllAsync(PredicateBuilder.True<Account>());
+            AccountSpecification specification = new AccountSpecification();
+
+            var result = await _unitOfWork.AccountRepository.GetBySpecificationAsync(specification);
 
             var responseDto = new List<AccountResponseDto>();
 

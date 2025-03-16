@@ -49,7 +49,7 @@ namespace FineBudget.Services.Implementations
 
         public async Task<List<IncomeResponseDto>> GetAllAsync()
         {
-            var result = await _unitOfWork.IncomeRepository.GetAllAsync(PredicateBuilder.True<Income>());
+            var result = await _unitOfWork.IncomeRepository.GetAllAsync();
 
             var responseDto = new List<IncomeResponseDto>();
 

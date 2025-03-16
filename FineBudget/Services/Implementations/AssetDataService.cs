@@ -50,7 +50,7 @@ namespace FineBudget.Services.Implementations
 
         public async Task<List<AssetResponseDto>> GetAllAsync()
         {
-            var result = await _unitOfWork.AssetRepository.GetAllAsync(PredicateBuilder.True<Asset>());
+            var result = await _unitOfWork.AssetRepository.GetAllAsync();
 
             var responseDto = new List<AssetResponseDto>();
 

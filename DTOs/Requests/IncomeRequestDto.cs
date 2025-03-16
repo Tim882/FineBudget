@@ -12,6 +12,8 @@ namespace DTOs.Requests
         public string TransactionNumber { get; set; } = string.Empty;
         public IncomeCategory IncomeCategory { get; set; }
         public Guid AccountId { get; set; }
+        public Guid? AssetId { get; set; }
+        public Guid? LiabilityId { get; set; }
     }
 }
 

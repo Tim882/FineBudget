@@ -49,7 +49,7 @@ namespace FineBudget.Services.Implementations
 
         public async Task<List<LiabilityResponseDto>> GetAllAsync()
         {
-            var result = await _unitOfWork.LiabilityRepository.GetAllAsync(PredicateBuilder.True<Liability>());
+            var result = await _unitOfWork.LiabilityRepository.GetAllAsync();
 
             var responseDto = new List<LiabilityResponseDto>();
 
