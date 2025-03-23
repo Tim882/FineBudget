@@ -13,6 +13,7 @@ namespace DbRepository.Specifications
         Expression<Func<T, bool>> Criteria { get; }
 
         // Includes (eager loading)
+        List<string> IncludeStrings { get; }
         List<Expression<Func<T, object>>> Includes { get; }
 
         // Sorting

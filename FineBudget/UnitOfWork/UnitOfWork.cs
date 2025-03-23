@@ -1,11 +1,11 @@
 ﻿using System;
+using Data.Repository.Interfaces;
 using DbRepository;
-using DbRepository.Interfaces;
 using Models.DbModels.MainModels;
 
 namespace FineBudget.UnitOfWork
 {
-	public class UnitOfWork: IUnitOfWork
+    public class UnitOfWork: IUnitOfWork
 	{
         private bool _disposed;
         private readonly BudgetContext _context;

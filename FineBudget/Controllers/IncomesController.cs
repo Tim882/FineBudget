@@ -11,6 +11,7 @@ using Models.DbModels.MainModels;
 using AutoMapper;
 using FineBudget.Services.Interfaces;
 using DTOs.Responses;
+using FineBudget.Models;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -30,7 +31,7 @@ namespace FineBudget.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] QueryParameters parameters)
         {
             ApiResponse<List<IncomeResponseDto>> response = new ApiResponse<List<IncomeResponseDto>>();
 

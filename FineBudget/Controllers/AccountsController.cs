@@ -5,10 +5,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DTOs;
 using DTOs.Responses;
-using FineBudget.Services.Interfaces;
-using FineBudget.UnitOfWork;
+using FineBudget.Models;
 using Microsoft.AspNetCore.Mvc;
-using Models.DbModels.MainModels;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -30,7 +28,7 @@ namespace FineBudget.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] QueryParameters parameters)
         {
             ApiResponse<List<AccountResponseDto>> response = new ApiResponse<List<AccountResponseDto>>();
 

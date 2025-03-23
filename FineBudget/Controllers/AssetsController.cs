@@ -6,6 +6,7 @@ using AutoMapper;
 using DTOs;
 using DTOs.Requests;
 using DTOs.Responses;
+using FineBudget.Models;
 using FineBudget.Services.Interfaces;
 using FineBudget.UnitOfWork;
 using Microsoft.AspNetCore.Mvc;
@@ -29,7 +30,7 @@ namespace FineBudget.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] QueryParameters parameters)
         {
             ApiResponse<List<AssetResponseDto>> response = new ApiResponse<List<AssetResponseDto>>();
 

@@ -1,12 +1,12 @@
 ﻿using System;
-using DbRepository.Interfaces;
+using Data.Repository.Interfaces;
 using Models.DbModels;
 using Models.DbModels.BaseModels;
 using Models.DbModels.MainModels;
 
 namespace FineBudget.UnitOfWork
 {
-	public interface IUnitOfWork: IDisposable
+    public interface IUnitOfWork: IDisposable
 	{
 		IRepository<Account> AccountRepository { get; }
         IRepository<Asset> AssetRepository { get; }
