@@ -1,5 +1,4 @@
 ﻿using FineBudget;
-using FineBudget.UnitOfWork;
 using Microsoft.EntityFrameworkCore;
 using FineBudget.Healthcheck;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -9,7 +8,7 @@ using System.Text.Json;
 using DTOs.Profiles;
 using FineBudget.Services.Interfaces;
 using FineBudget.Services.Implementations;
-using FileHandler;
+using Data.UnitOfWork;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,10 +27,8 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IAssetDataService, AssetDataService>();
 builder.Services.AddScoped<IAccountDataService, AccountDataService>();
 builder.Services.AddScoped<ICostDataService, CostDataService>();
-builder.Services.AddScoped<IImportDataService, ImportDataService>();
 builder.Services.AddScoped<IIncomeDataService, IncomeDataService>();
 builder.Services.AddScoped<ILiabilityDataService, LiabilityDataService>();
-builder.Services.AddScoped<IFileReader, CsvFileReader>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddHealthChecks().AddCheck<LivenessHealthCheck>("live", tags: new[] { "Liveness" });

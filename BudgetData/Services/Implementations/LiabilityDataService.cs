@@ -1,79 +1,17 @@
 ﻿using AutoMapper;
+using Data.Service;
+using Data.UnitOfWork;
 using DbRepository;
 using DTOs.Requests;
 using FineBudget.Services.Interfaces;
-using FineBudget.UnitOfWork;
+using FluentValidation;
 using Models.DbModels.MainModels;
 
 namespace FineBudget.Services.Implementations
 {
-    public class LiabilityDataService: ILiabilityDataService
+    public class LiabilityDataService : BaseCrudDataService<Liability, Guid, LiabilityRequestDto, LiabilityResponseDto>, ILiabilityDataService
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-
-        public LiabilityDataService(IUnitOfWork unitOfWork, IMapper mapper)
-        {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
-        }
-
-        public async Task<LiabilityResponseDto> CreateAsync(LiabilityRequestDto dto)
-        {
-            var liability = _mapper.Map<Liability>(dto);
-
-            var result = await _unitOfWork.LiabilityRepository.CreateAsync(liability);
-            await _unitOfWork.SaveAsync();
-
-            var responseDto = _mapper.Map<LiabilityResponseDto>(result);
-
-            return responseDto;
-        }
-
-        public async Task<bool> DeleteAsync(Guid id)
-        {
-            await _unitOfWork.LiabilityRepository.DeleteAsync(id);
-            var result = await _unitOfWork.SaveAsync();
-
-            return result > 0;
-        }
-
-        public async Task<LiabilityResponseDto> GetByIdAsync(Guid id)
-        {
-            var result = await _unitOfWork.LiabilityRepository.GetAsync(id);
-
-            var responseDto = _mapper?.Map<LiabilityResponseDto>(result);
-
-            return responseDto;
-        }
-
-        public async Task<List<LiabilityResponseDto>> GetAllAsync()
-        {
-            var result = await _unitOfWork.LiabilityRepository.GetAllAsync();
-
-            var responseDto = new List<LiabilityResponseDto>();
-
-            foreach (var item in result)
-            {
-                var responseItem = _mapper.Map<LiabilityResponseDto>(item);
-
-                responseDto.Add(responseItem);
-            }
-
-            return responseDto;
-        }
-
-        public async Task<LiabilityResponseDto> UpdateAsync(Guid id, LiabilityRequestDto dto)
-        {
-            var liability = _mapper.Map<Liability>(dto);
-            liability.Id = id;
-
-            var result = await _unitOfWork.LiabilityRepository.Update(liability);
-            await _unitOfWork.SaveAsync();
-
-            var responseDto = _mapper.Map<LiabilityResponseDto>(result);
-
-            return responseDto;
-        }
+        public LiabilityDataService(IUnitOfWork unitOfWork, IMapper mapper, IValidator<LiabilityRequestDto> validator)
+            : base(unitOfWork, mapper, validator) { }
     }
 }

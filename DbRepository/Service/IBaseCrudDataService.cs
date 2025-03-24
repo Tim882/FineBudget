@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Data.Service
 {
-    public interface IBaseCrudDataService<TEntity, TKey, TDto> where TEntity : class where TDto : class
+    public interface IBaseCrudDataService<TEntity, TKey, TRequestDto, TResponseDto> where TEntity : class where TRequestDto : class where TResponseDto : class
     {
-        Task<PaginatedResponse<TDto>> GetAsync(QueryParameters parameters);
-        Task<TDto> GetByIdAsync(TKey id);
-        Task<TDto> CreateAsync(TDto dto);
-        Task UpdateAsync(TKey id, TDto dto);
+        Task<PaginatedResponse<TResponseDto>> GetAsync(QueryParameters parameters);
+        Task<TResponseDto> GetByIdAsync(TKey id);
+        Task<TResponseDto> CreateAsync(TRequestDto dto);
+        Task UpdateAsync(TKey id, TRequestDto dto);
         Task DeleteAsync(TKey id);
     }
 }

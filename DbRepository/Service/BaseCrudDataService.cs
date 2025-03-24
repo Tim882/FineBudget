@@ -7,22 +7,23 @@ using FluentValidation;
 
 namespace Data.Service
 {
-    public class BaseCrudDataService<TEntity, TKey, TDto> : IBaseCrudDataService<TEntity, TKey, TDto>
+    public class BaseCrudDataService<TEntity, TKey, TRequestDto, TResponseDto> : IBaseCrudDataService<TEntity, TKey, TRequestDto, TResponseDto>
     where TEntity : class
-    where TDto : class
+    where TRequestDto : class
+    where TResponseDto : class
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
-        private readonly IValidator<TDto> _validator;
+        protected readonly IUnitOfWork _unitOfWork;
+        protected readonly IMapper _mapper;
+        protected readonly IValidator<TRequestDto> _validator;
 
-        public BaseCrudDataService(IUnitOfWork unitOfWork, IMapper mapper, IValidator<TDto> validator)
+        public BaseCrudDataService(IUnitOfWork unitOfWork, IMapper mapper, IValidator<TRequestDto> validator)
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
             _validator = validator;
         }
 
-        public async Task<PaginatedResponse<TDto>> GetAsync(QueryParameters parameters)
+        public async Task<PaginatedResponse<TResponseDto>> GetAsync(QueryParameters parameters)
         {
             var spec = new BaseSpecification<TEntity>(parameters);
 
@@ -30,11 +31,11 @@ namespace Data.Service
             var entities = await repository.GetAsync(spec);
             var totalCount = await repository.CountAsync(spec);
 
-            var dtos = _mapper.Map<IReadOnlyList<TDto>>(entities);
-            return new PaginatedResponse<TDto>(dtos, totalCount, spec.Skip, spec.Take);
+            var dtos = _mapper.Map<IReadOnlyList<TResponseDto>>(entities);
+            return new PaginatedResponse<TResponseDto>(dtos, totalCount, spec.Skip, spec.Take);
         }
 
-        public async Task<TDto> GetByIdAsync(TKey id)
+        public async Task<TResponseDto> GetByIdAsync(TKey id)
         {
             var repository = _unitOfWork.GetRepository<TEntity, TKey>();
             var entity = await repository.GetByIdAsync(id);
@@ -43,10 +44,10 @@ namespace Data.Service
                 throw new KeyNotFoundException($"Entity with id {id} not found.");
             }
 
-            return _mapper.Map<TDto>(entity);
+            return _mapper.Map<TResponseDto>(entity);
         }
 
-        public async Task<TDto> CreateAsync(TDto dto)
+        public async Task<TResponseDto> CreateAsync(TRequestDto dto)
         {
             // Валидация DTO
             var validationResult = await _validator.ValidateAsync(dto);
@@ -60,10 +61,10 @@ namespace Data.Service
             await repository.AddAsync(entity);
             await _unitOfWork.CommitAsync();
 
-            return _mapper.Map<TDto>(entity);
+            return _mapper.Map<TResponseDto>(entity);
         }
 
-        public async Task UpdateAsync(TKey id, TDto dto)
+        public async Task UpdateAsync(TKey id, TRequestDto dto)
         {
             // Валидация DTO
             var validationResult = await _validator.ValidateAsync(dto);

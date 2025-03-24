@@ -24,10 +24,10 @@
     <None Remove="Healthcheck\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="UnitOfWork\" />
     <Folder Include="Healthcheck\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BudgetData\BudgetData.csproj" />
     <ProjectReference Include="..\DbRepository\Data.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>

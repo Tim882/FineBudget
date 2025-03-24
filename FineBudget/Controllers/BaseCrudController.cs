@@ -6,13 +6,14 @@ namespace FineBudget.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class BaseCrudController<TEntity, TKey, TDto> : ControllerBase
+    public class BaseCrudController<TEntity, TKey, TRequestDto, TResponseDto> : ControllerBase
     where TEntity : class
-    where TDto : class
+    where TRequestDto : class
+    where TResponseDto : class
     {
-        private readonly IBaseCrudDataService<TEntity, TKey, TDto> _service;
+        protected readonly IBaseCrudDataService<TEntity, TKey, TRequestDto, TResponseDto> _service;
 
-        public BaseCrudController(IBaseCrudDataService<TEntity, TKey, TDto> service)
+        public BaseCrudController(IBaseCrudDataService<TEntity, TKey, TRequestDto, TResponseDto> service)
         {
             _service = service;
         }
@@ -36,14 +37,14 @@ namespace FineBudget.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(TDto dto)
+        public async Task<IActionResult> Create(TRequestDto dto)
         {
             var createdDto = await _service.CreateAsync(dto);
             return CreatedAtAction(nameof(GetById), new { id = (createdDto as dynamic).Id }, createdDto);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(TKey id, TDto dto)
+        public async Task<IActionResult> Update(TKey id, TRequestDto dto)
         {
             await _service.UpdateAsync(id, dto);
             return NoContent();
