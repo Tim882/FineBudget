@@ -9,6 +9,9 @@ using DTOs.Profiles;
 using FineBudget.Services.Interfaces;
 using FineBudget.Services.Implementations;
 using Data.UnitOfWork;
+using BudgetData;
+using FluentValidation.AspNetCore;
+using BudgetData.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,10 +23,18 @@ string connection = builder.Configuration.GetConnectionString("DefaultConnection
 
 // Add services to the container.
 builder.Services.AddAutoMapper(typeof(BudgetProfile));
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddFluentValidation(fv =>
+    {
+        fv.RegisterValidatorsFromAssemblyContaining<AccountRequestDtoValidator>();
+        fv.RegisterValidatorsFromAssemblyContaining<AssetRequestDtoValidator>();
+        fv.RegisterValidatorsFromAssemblyContaining<CostRequestDtoValidator>();
+        fv.RegisterValidatorsFromAssemblyContaining<IncomeRequestDtoValidator>();
+        fv.RegisterValidatorsFromAssemblyContaining<LiabilityRequestDtoValidator>();
+    });
 builder.Services.AddExceptionHandler<ExceptionHandler>();
 builder.Services.AddDbContext<BudgetContext>(options => options.UseNpgsql(connection));
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IUnitOfWork, BudgetUnitOfWork>();
 builder.Services.AddScoped<IAssetDataService, AssetDataService>();
 builder.Services.AddScoped<IAccountDataService, AccountDataService>();
 builder.Services.AddScoped<ICostDataService, CostDataService>();

@@ -81,7 +81,7 @@ namespace Data.Service
             }
 
             _mapper.Map(dto, entity);
-            repository.UpdateAsync(entity);
+            await repository.UpdateAsync(entity);
             await _unitOfWork.CommitAsync();
         }
 

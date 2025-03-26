@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Data.UnitOfWork
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork<T> : IUnitOfWork where T : DbContext
     {
         private readonly DbContext _context;
         private readonly Dictionary<Type, object> _repositories;
