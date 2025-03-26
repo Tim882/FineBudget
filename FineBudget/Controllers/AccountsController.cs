@@ -1,5 +1,6 @@
 ﻿using Data.Service;
 using DTOs;
+using FineBudget.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Models.DbModels.MainModels;
 
@@ -11,7 +12,7 @@ namespace FineBudget.Controllers
     [Route("api/[controller]")]
     public class AccountsController : BaseCrudController<Account, Guid, AccountRequestDto, AccountResponseDto>
     {
-        public AccountsController(IBaseCrudDataService<Account, Guid, AccountRequestDto, AccountResponseDto> service)
+        public AccountsController(IAccountDataService service)
             : base(service) { }
     }
 }

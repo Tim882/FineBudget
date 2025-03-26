@@ -1,6 +1,7 @@
 ﻿using Data.Service;
 using DTOs.Requests;
 using DTOs.Responses;
+using FineBudget.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Models.DbModels.MainModels;
 
@@ -12,7 +13,7 @@ namespace FineBudget.Controllers
     [Route("api/[controller]")]
     public class AssetsController : BaseCrudController<Asset, Guid, AssetRequestDto, AssetResponseDto>
     {
-        public AssetsController(IBaseCrudDataService<Asset, Guid, AssetRequestDto, AssetResponseDto> service)
+        public AssetsController(IAssetDataService service)
             : base(service) { }
     }
 }

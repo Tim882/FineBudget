@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Models.DbModels.MainModels;
 using Data.Service;
+using FineBudget.Services.Interfaces;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -11,7 +12,7 @@ namespace FineBudget.Controllers
     [Route("/api/[controller]")]
     public class CostsController : BaseCrudController<Cost, Guid, CostRequestDto, CostResponseDto>
     {
-        public CostsController(IBaseCrudDataService<Cost, Guid, CostRequestDto, CostResponseDto> service)
+        public CostsController(ICostDataService service)
             : base(service) { }
     }
 }
