@@ -22,6 +22,15 @@ builder.Logging.AddJsonConsole();
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowReactApp",
+        builder => builder
+            .WithOrigins("http://localhost:3000") // Ваш фронтенд-адрес
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials());
+});
 builder.Services.AddAutoMapper(typeof(BudgetProfile));
 builder.Services.AddControllers()
     .AddFluentValidation(fv =>
@@ -32,7 +41,7 @@ builder.Services.AddControllers()
         fv.RegisterValidatorsFromAssemblyContaining<IncomeRequestDtoValidator>();
         fv.RegisterValidatorsFromAssemblyContaining<LiabilityRequestDtoValidator>();
     });
-builder.Services.AddExceptionHandler<ExceptionHandler>();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddDbContext<BudgetContext>(options => options.UseNpgsql(connection));
 builder.Services.AddScoped<IUnitOfWork, BudgetUnitOfWork>();
 builder.Services.AddScoped<IAssetDataService, AssetDataService>();
@@ -59,6 +68,9 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+app.UseCors("AllowReactApp");
+app.UseExceptionHandler(opt => { });
+//app.UseExceptionHandler();
 app.MapControllers();
 
 app.MapHealthChecks("/health/live", new HealthCheckOptions

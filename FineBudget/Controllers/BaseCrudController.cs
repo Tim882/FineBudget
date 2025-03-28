@@ -1,6 +1,9 @@
 ﻿using FineBudget.Models;
 using Microsoft.AspNetCore.Mvc;
 using Data.Service;
+using DTOs.Responses;
+using ErrorsHandlers;
+using Data.Models;
 
 namespace FineBudget.Controllers
 {
@@ -21,8 +24,8 @@ namespace FineBudget.Controllers
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery] QueryParameters parameters)
         {
-            var result = await _service.GetAsync(parameters);
-            return Ok(result);
+            PaginatedResponse<TResponseDto> result = await _service.GetAsync(parameters);
+            return Ok(ApiResponse<PaginatedResponse<TResponseDto>>.Ok(result));
         }
 
         [HttpGet("{id}")]
@@ -40,7 +43,7 @@ namespace FineBudget.Controllers
         public async Task<IActionResult> Create(TRequestDto dto)
         {
             var createdDto = await _service.CreateAsync(dto);
-            return CreatedAtAction(nameof(GetById), new { id = (createdDto as dynamic).Id }, createdDto);
+            return CreatedAtAction(nameof(GetById), new { id = (createdDto as dynamic).Id }, ApiResponse<TResponseDto>.Ok(createdDto));
         }
 
         [HttpPut("{id}")]
