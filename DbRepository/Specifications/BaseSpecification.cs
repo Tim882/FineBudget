@@ -48,11 +48,11 @@ namespace DbRepository.Specifications
 
                 if (parameters.SortDescending)
                 {
-                    ApplyOrderByDescending(Expression.Lambda<Func<T, object>>(property, parameter));
+                    ApplyOrderByDescending(Expression.Lambda<Func<T, object>>(Expression.Convert(property, typeof(object)), parameter));
                 }
                 else
                 {
-                    ApplyOrderBy(Expression.Lambda<Func<T, object>>(property, parameter));
+                    ApplyOrderBy(Expression.Lambda<Func<T, object>>(Expression.Convert(property, typeof(object)), parameter));
                 }
             }
 
