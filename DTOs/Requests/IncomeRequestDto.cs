@@ -1,19 +1,12 @@
 ﻿using System;
+using DTOs.BaseDto.Operation;
 using Models.DbModels.Enums;
 
 namespace DTOs.Requests
 {
-	public class IncomeRequestDto
+	public class IncomeRequestDto: OperationRequestDto
 	{
-        public DateTime Date { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public decimal Value { get; set; }
-        public string TransactionNumber { get; set; } = string.Empty;
         public IncomeCategory IncomeCategory { get; set; }
-        public Guid AccountId { get; set; }
-        public Guid? AssetId { get; set; }
-        public Guid? LiabilityId { get; set; }
     }
 }
 

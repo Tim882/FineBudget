@@ -11,5 +11,6 @@ namespace DTOs.BaseDto.BalanceItem
     {
         public string Title { get; set; }
         public decimal Value { get; set; }
+        public DateTime Date { get; set; }
     }
 }

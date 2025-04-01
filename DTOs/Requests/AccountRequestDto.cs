@@ -1,6 +1,8 @@
-﻿namespace DTOs;
+﻿using DTOs.BaseDto;
 
-public class AccountRequestDto
+namespace DTOs;
+
+public class AccountRequestDto: BaseRequestDto
 {
     public DateTime Date { get; set; }
     public string Title { get; set; }
