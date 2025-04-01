@@ -1,10 +1,10 @@
-﻿using DTOs.Requests;
+﻿using DTOs.BaseDto;
+using DTOs.Requests;
 
 namespace DTOs;
 
-public class AccountResponseDto
+public class AccountResponseDto : BaseResponseDto
 {
-    public Guid Id { get; set; }
     public DateTime Date { get; set; }
     public string Title { get; set; }
     public decimal Balance { get; set; }

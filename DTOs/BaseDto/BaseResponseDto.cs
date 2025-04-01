@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models.DbModels.BaseModels
+namespace DTOs.BaseDto
 {
-    public abstract class BaseEntity
+    public abstract class BaseResponseDto
     {
         public Guid Id { get; set; }
         public DateTime CreatedAt { get; set; }

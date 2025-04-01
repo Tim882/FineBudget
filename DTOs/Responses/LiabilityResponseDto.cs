@@ -1,15 +1,13 @@
 ﻿using System;
+using DTOs.BaseDto;
+using DTOs.BaseDto.BalanceItem;
 using Models.DbModels.Enums;
 
 namespace DTOs.Requests
 {
-	public class LiabilityResponseDto
+	public class LiabilityResponseDto : BalanceItemResponseDto
     {
-        public Guid Id { get; set; }
         public LiabilityType LiabilityType { get; set; }
-        public DateTime Date { get; set; }
-        public string Title { get; set; }
-        public decimal Value { get; set; }
     }
 }
 

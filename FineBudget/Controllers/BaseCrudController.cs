@@ -4,6 +4,7 @@ using Data.Service;
 using DTOs.Responses;
 using ErrorsHandlers;
 using Data.Models;
+using DTOs.BaseDto;
 
 namespace FineBudget.Controllers
 {
@@ -11,8 +12,8 @@ namespace FineBudget.Controllers
     [Route("api/[controller]")]
     public class BaseCrudController<TEntity, TKey, TRequestDto, TResponseDto> : ControllerBase
     where TEntity : class
-    where TRequestDto : class
-    where TResponseDto : class
+    where TRequestDto : BaseRequestDto
+    where TResponseDto : BaseResponseDto
     {
         protected readonly IBaseCrudDataService<TEntity, TKey, TRequestDto, TResponseDto> _service;
 

@@ -1,15 +1,13 @@
 ﻿using System;
+using DTOs.BaseDto;
+using DTOs.BaseDto.BalanceItem;
 using Models.DbModels.Enums;
 
 namespace DTOs.Responses
 {
-	public class AssetResponseDto
+	public class AssetResponseDto : BalanceItemResponseDto
     {
-        public Guid Id { get; set; }
         public AssetType AssetType { get; set; }
-        public DateTime Date { get; set; }
-        public string Title { get; set; }
-        public decimal Value { get; set; }
     }
 }
 
