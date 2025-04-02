@@ -6,12 +6,11 @@
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 10;
 
-        // Фильтрация
-        public string? Filter { get; set; }
-        public string? FilterValue { get; set; }
-
         // Сортировка
         public string? SortBy { get; set; }
         public bool SortDescending { get; set; }
+
+        // Фильтрация
+        public Dictionary<string, string> Filters { get; set; } = new Dictionary<string, string>();
     }
 }
