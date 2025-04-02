@@ -23,8 +23,7 @@ namespace FineBudget.Controllers
             _service = service;
         }
 
-        [HttpGet]
-        
+        [HttpGet]        
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ApiResponse<PaginatedResponse<TResponseDto>>>> Get([FromQuery] QueryParameters parameters)
         {

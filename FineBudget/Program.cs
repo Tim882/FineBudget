@@ -12,6 +12,10 @@ using Data.UnitOfWork;
 using BudgetData;
 using FluentValidation.AspNetCore;
 using BudgetData.Validators;
+using FluentValidation;
+using Models.DbModels.MainModels;
+using DTOs;
+using DTOs.Requests;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,21 +30,19 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",
         builder => builder
-            .WithOrigins("http://localhost:3000") // Ваш фронтенд-адрес
+            .WithOrigins("http://localhost:5174") // Ваш фронтенд-адрес
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials());
 });
 builder.Services.AddAutoMapper(typeof(BudgetProfile));
-builder.Services.AddControllers()
-    .AddFluentValidation(fv =>
-    {
-        fv.RegisterValidatorsFromAssemblyContaining<AccountRequestDtoValidator>();
-        fv.RegisterValidatorsFromAssemblyContaining<AssetRequestDtoValidator>();
-        fv.RegisterValidatorsFromAssemblyContaining<CostRequestDtoValidator>();
-        fv.RegisterValidatorsFromAssemblyContaining<IncomeRequestDtoValidator>();
-        fv.RegisterValidatorsFromAssemblyContaining<LiabilityRequestDtoValidator>();
-    });
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddScoped<IValidator<AccountRequestDto>, AccountRequestDtoValidator>();
+builder.Services.AddScoped<IValidator<AssetRequestDto>, AssetRequestDtoValidator>();
+builder.Services.AddScoped<IValidator<CostRequestDto>, CostRequestDtoValidator>();
+builder.Services.AddScoped<IValidator<IncomeRequestDto>, IncomeRequestDtoValidator>();
+builder.Services.AddScoped<IValidator<LiabilityRequestDto>, LiabilityRequestDtoValidator>();
+builder.Services.AddControllers();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddDbContext<BudgetContext>(options => options.UseNpgsql(connection));
 builder.Services.AddScoped<IUnitOfWork, BudgetUnitOfWork>();
