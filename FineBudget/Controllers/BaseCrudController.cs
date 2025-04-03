@@ -25,8 +25,10 @@ namespace FineBudget.Controllers
 
         [HttpGet]        
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ApiResponse<PaginatedResponse<TResponseDto>>>> Get([FromQuery] QueryParameters parameters)
+        public async Task<ActionResult<ApiResponse<PaginatedResponse<TResponseDto>>>> Get([FromQuery] QueryParameters _)
         {
+            var parameters = new QueryParameters().ParseQueryParameters(Request);
+
             PaginatedResponse<TResponseDto> result = await _service.GetAsync(parameters);
             return Ok(ApiResponse<PaginatedResponse<TResponseDto>>.Ok(result));
         }
