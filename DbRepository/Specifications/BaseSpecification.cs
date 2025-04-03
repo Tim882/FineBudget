@@ -228,7 +228,7 @@ namespace DbRepository.Specifications
                 var value = parts.Length > 1 ? parts[1] : filter.Value;
                 var operatorStr = parts.Length > 1 ? parts[0] : "eq";
 
-                criteria = CombineCriteria(criteria, BuildSingleCriteria(filter.Key, operatorStr, value));
+                criteria = CombineCriteria(criteria, BuildSingleCriteria(filter.Key, value, operatorStr));
             }
 
             // Обработка диапазонных фильтров
@@ -307,16 +307,18 @@ namespace DbRepository.Specifications
 
                 body = Expression.Call(property, containsMethod, constant);
             }
-
-            body = operatorStr switch
+            else
             {
-                "eq" => Expression.Equal(property, constant),
-                "gt" => Expression.GreaterThan(property, constant),
-                "lt" => Expression.LessThan(property, constant),
-                "gte" => Expression.GreaterThanOrEqual(property, constant),
-                "lte" => Expression.LessThanOrEqual(property, constant),
-                _ => Expression.Equal(property, constant)
-            };
+                body = operatorStr switch
+                {
+                    "eq" => Expression.Equal(property, constant),
+                    "gt" => Expression.GreaterThan(property, constant),
+                    "lt" => Expression.LessThan(property, constant),
+                    "gte" => Expression.GreaterThanOrEqual(property, constant),
+                    "lte" => Expression.LessThanOrEqual(property, constant),
+                    _ => Expression.Equal(property, constant)
+                };
+            }
 
             return Expression.Lambda<Func<T, bool>>(body, parameter);
         }
