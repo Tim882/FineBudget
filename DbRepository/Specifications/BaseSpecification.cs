@@ -228,7 +228,7 @@ namespace DbRepository.Specifications
                 var value = parts.Length > 1 ? parts[1] : filter.Value;
                 var operatorStr = parts.Length > 1 ? parts[0] : "eq";
 
-                criteria = CombineCriteria(criteria, BuildSingleCriteria(filter.Key, value, operatorStr));
+                criteria = CombineCriteria(criteria, BuildSingleCriteria(filter.Key, operatorStr, value));
             }
 
             // Обработка диапазонных фильтров

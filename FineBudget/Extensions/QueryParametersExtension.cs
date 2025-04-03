@@ -27,7 +27,7 @@ namespace Data.Models
             // Фильтры
             foreach (var (key, value) in request.Query)
             {
-                if (key == "page" || key == "pageSize" || key == "sortBy" || key == "sortDescending")
+                if (key == "PageNumber" || key == "PageSize" || key == "SortBy" || key == "SortDescending")
                     continue;
 
                 if (key.EndsWith("_gte") || key.EndsWith("_lte") ||
