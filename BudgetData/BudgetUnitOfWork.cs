@@ -1,4 +1,7 @@
 ﻿using Base.Database;
+using Base.Models;
+using FineBudget.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace FineBudget.Data
 {

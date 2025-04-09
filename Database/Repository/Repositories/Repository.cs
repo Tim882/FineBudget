@@ -1,8 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Base.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Base.Database;
 
-public class Repository<T, TKey> : IRepository<T, TKey> where T : class
+public class Repository<T, TKey> : IRepository<T, TKey>
+    where T : class
 {
     private readonly DbContext _context;
 
@@ -41,6 +44,7 @@ public class Repository<T, TKey> : IRepository<T, TKey> where T : class
     public async Task DeleteAsync(T entity)
     {
         _context.Set<T>().Remove(entity);
+
         await _context.SaveChangesAsync();
     }
 

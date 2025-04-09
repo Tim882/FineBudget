@@ -1,10 +1,12 @@
-﻿using FineBudget.Models;
+﻿using Base.Models;
+using FineBudget.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FineBudget.Data
 {
-	public class BudgetContext: DbContext
-	{
+	public class BudgetContext: IdentityDbContext<BudgetUser>
+    {
 		public DbSet<Account> Accounts { get; set; }
 		public DbSet<Asset> Assets { get; set; }
 		public DbSet<Cost> Costs { get; set; }

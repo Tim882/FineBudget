@@ -9,6 +9,9 @@ namespace FineBudget.Models
 
         public List<Income> Incomes { get; set; }
         public List<Cost> Costs { get; set; }
+
+        public Guid UserId { get; set; }
+        public BudgetUser User { get; set; }
     }
 }
 
