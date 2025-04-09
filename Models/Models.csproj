@@ -7,11 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="DbModels\" />
-    <None Remove="DbModels\MainModels\" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.3.0" />
   </ItemGroup>
+
   <ItemGroup>
-    <Folder Include="DbModels\" />
-    <Folder Include="DbModels\MainModels\" />
+    <ProjectReference Include="..\Libraries\Libraries.csproj" />
   </ItemGroup>
+
 </Project>

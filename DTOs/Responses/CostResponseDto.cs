@@ -1,9 +1,6 @@
-﻿using System;
-using DTOs.BaseDto;
-using DTOs.BaseDto.Operation;
-using Models.DbModels.Enums;
+﻿using FineBudget.Models;
 
-namespace DTOs.Requests
+namespace FineBudget.DTO
 {
 	public class CostResponseDto : OperationResponseDto
     {

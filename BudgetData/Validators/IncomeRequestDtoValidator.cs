@@ -1,7 +1,7 @@
-﻿using DTOs.Requests;
+﻿using FineBudget.DTO;
 using FluentValidation;
 
-namespace BudgetData.Validators
+namespace FineBudget.Data
 {
     public class IncomeRequestDtoValidator : AbstractValidator<IncomeRequestDto>
     {

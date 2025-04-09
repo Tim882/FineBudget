@@ -1,4 +1,5 @@
 ﻿using System;
+using FineBudget.Data;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace FineBudget.Healthcheck

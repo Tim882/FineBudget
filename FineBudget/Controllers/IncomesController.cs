@@ -1,8 +1,8 @@
-﻿using DTOs.Requests;
+﻿using Base.API;
+using FineBudget.Data;
+using FineBudget.DTO;
+using FineBudget.Models;
 using Microsoft.AspNetCore.Mvc;
-using Models.DbModels.MainModels;
-using Data.Service;
-using FineBudget.Services.Interfaces;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 

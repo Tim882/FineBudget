@@ -1,10 +1,8 @@
-﻿using Data.Service;
-using DTOs;
-using DTOs.Requests;
-using DTOs.Responses;
-using Models.DbModels.MainModels;
+﻿using Base.Database;
+using FineBudget.DTO;
+using FineBudget.Models;
 
-namespace FineBudget.Services.Interfaces
+namespace FineBudget.Data
 {
     public interface IAssetDataService : IBaseCrudDataService<Asset, Guid, AssetRequestDto, AssetResponseDto>
     {

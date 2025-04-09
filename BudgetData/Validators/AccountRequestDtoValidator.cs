@@ -1,7 +1,7 @@
-﻿using DTOs;
+﻿using FineBudget.DTO;
 using FluentValidation;
 
-namespace BudgetData.Validators
+namespace FineBudget.Data
 {
     public class AccountRequestDtoValidator : AbstractValidator<AccountRequestDto>
     {

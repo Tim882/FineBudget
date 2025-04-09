@@ -1,7 +1,6 @@
-﻿using DTOs.BaseDto;
-using DTOs.Requests;
+﻿using Base.Models;
 
-namespace DTOs;
+namespace FineBudget.DTO;
 
 public class AccountResponseDto : BaseResponseDto
 {

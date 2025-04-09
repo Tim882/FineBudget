@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
-using Data.Service;
-using Data.UnitOfWork;
-using DTOs.Requests;
-using DTOs.Responses;
-using FineBudget.Services.Interfaces;
+using Base.Database;
+using FineBudget.DTO;
+using FineBudget.Models;
 using FluentValidation;
-using Models.DbModels.MainModels;
 
-namespace FineBudget.Services.Implementations
+namespace FineBudget.Data
 {
     public class CostDataService : BaseCrudDataService<Cost, Guid, CostRequestDto, CostResponseDto>, ICostDataService
     {

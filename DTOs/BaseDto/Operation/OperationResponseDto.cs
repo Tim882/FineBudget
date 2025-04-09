@@ -1,11 +1,6 @@
-﻿using Models.DbModels.MainModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Base.Models;
 
-namespace DTOs.BaseDto.Operation
+namespace FineBudget.DTO
 {
     public class OperationResponseDto : BaseResponseDto
     {

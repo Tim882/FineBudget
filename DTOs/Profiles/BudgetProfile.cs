@@ -1,10 +1,7 @@
-﻿using System;
-using AutoMapper;
-using DTOs.Requests;
-using DTOs.Responses;
-using Models.DbModels.MainModels;
+﻿using AutoMapper;
+using FineBudget.Models;
 
-namespace DTOs.Profiles
+namespace FineBudget.DTO
 {
 	public class BudgetProfile : Profile
 	{

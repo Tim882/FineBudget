@@ -1,8 +1,8 @@
-﻿using Data.Service;
-using DTOs.Requests;
-using Models.DbModels.MainModels;
+﻿using Base.Database;
+using FineBudget.DTO;
+using FineBudget.Models;
 
-namespace FineBudget.Services.Interfaces
+namespace FineBudget.Data
 {
     public interface IIncomeDataService : IBaseCrudDataService<Income, Guid, IncomeRequestDto, IncomeResponseDto>
     {

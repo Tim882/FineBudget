@@ -16,6 +16,8 @@
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.11" />
+	  <PackageReference Include="AutoMapper" Version="12.0.1" />
+	  <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,13 +30,12 @@
     <Folder Include="Healthcheck\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BudgetData\BudgetData.csproj" />
-    <ProjectReference Include="..\DbRepository\Data.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
-    <ProjectReference Include="..\DTOs\DTOs.csproj">
-      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
-    </ProjectReference>
-    <ProjectReference Include="..\ErrorsHandlers\ErrorsHandlers.csproj" />
+    <ProjectReference Include="..\API\API.csproj" />
+    <ProjectReference Include="..\BudgetData\FineBudget.Data.csproj" />
+    <ProjectReference Include="..\Database\Database.csproj" />
+    <ProjectReference Include="..\DTOs\FineBudget.DTO.csproj" />
+    <ProjectReference Include="..\FineBudget.Models\FineBudget.Models.csproj" />
+    <ProjectReference Include="..\Libraries\Libraries.csproj" />
+    <ProjectReference Include="..\Models\Models.csproj" />
   </ItemGroup>
 </Project>

@@ -1,10 +1,9 @@
 ﻿using System;
-using Data.Repository.Interfaces;
-using Data.Repository.Repositories;
+using Base.Database;
+using FineBudget.Models;
 using Microsoft.EntityFrameworkCore;
-using Models.DbModels.MainModels;
 
-namespace FineBudget.Repositories
+namespace FineBudget.Data
 {
     public class LiabilityRepository : Repository<Liability, Guid>, IRepository<Liability, Guid>
     {

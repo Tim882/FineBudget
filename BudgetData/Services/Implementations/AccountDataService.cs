@@ -1,15 +1,11 @@
 ﻿using AutoMapper;
-using Data.Service;
-using Data.UnitOfWork;
-using DbRepository;
-using DTOs;
-using FineBudget.Services.Interfaces;
-using FineBudget.Services.Specifications;
+using Base.Database;
+using FineBudget.Data;
+using FineBudget.DTO;
+using FineBudget.Models;
 using FluentValidation;
-using Microsoft.EntityFrameworkCore;
-using Models.DbModels.MainModels;
 
-namespace FineBudget.Services.Implementations
+namespace FineBudget.Data
 {
     public class AccountDataService: BaseCrudDataService<Account, Guid, AccountRequestDto, AccountResponseDto>, IAccountDataService
     {

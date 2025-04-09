@@ -1,13 +1,6 @@
-﻿using Data.UnitOfWork;
-using FineBudget;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Base.Database;
 
-namespace BudgetData
+namespace FineBudget.Data
 {
     public class BudgetUnitOfWork : UnitOfWork<BudgetContext>, IUnitOfWork
     {

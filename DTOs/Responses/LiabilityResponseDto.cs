@@ -1,9 +1,6 @@
-﻿using System;
-using DTOs.BaseDto;
-using DTOs.BaseDto.BalanceItem;
-using Models.DbModels.Enums;
+﻿using FineBudget.Models;
 
-namespace DTOs.Requests
+namespace FineBudget.DTO
 {
 	public class LiabilityResponseDto : BalanceItemResponseDto
     {

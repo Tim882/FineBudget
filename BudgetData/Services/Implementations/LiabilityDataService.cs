@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
-using Data.Service;
-using Data.UnitOfWork;
-using DbRepository;
-using DTOs.Requests;
-using FineBudget.Services.Interfaces;
+using Base.Database;
+using FineBudget.DTO;
+using FineBudget.Models;
 using FluentValidation;
-using Models.DbModels.MainModels;
 
-namespace FineBudget.Services.Implementations
+namespace FineBudget.Data
 {
     public class LiabilityDataService : BaseCrudDataService<Liability, Guid, LiabilityRequestDto, LiabilityResponseDto>, ILiabilityDataService
     {

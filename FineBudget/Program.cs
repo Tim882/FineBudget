@@ -1,21 +1,15 @@
-﻿using FineBudget;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using FineBudget.Healthcheck;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using System.Text;
 using System.Text.Json;
-using DTOs.Profiles;
-using FineBudget.Services.Interfaces;
-using FineBudget.Services.Implementations;
-using Data.UnitOfWork;
-using BudgetData;
-using FluentValidation.AspNetCore;
-using BudgetData.Validators;
+using FineBudget.DTO;
+using FineBudget.Data;
 using FluentValidation;
-using Models.DbModels.MainModels;
-using DTOs;
-using DTOs.Requests;
+using Base.API;
+using FluentValidation.AspNetCore;
+using Base.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,7 +24,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",
         builder => builder
-            .WithOrigins("http://localhost:5174") // Ваш фронтенд-адрес
+            .WithOrigins("http://localhost:5173") // Ваш фронтенд-адрес
             .AllowAnyMethod()
             .AllowAnyHeader()
             .AllowCredentials());

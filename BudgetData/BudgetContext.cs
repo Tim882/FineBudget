@@ -1,11 +1,7 @@
-﻿using System;
+﻿using FineBudget.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Models.DbModels;
-using Models.DbModels.BaseModels;
-using Models.DbModels.MainModels;
-
-namespace FineBudget
+namespace FineBudget.Data
 {
 	public class BudgetContext: DbContext
 	{

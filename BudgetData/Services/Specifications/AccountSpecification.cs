@@ -1,9 +1,9 @@
-﻿using DbRepository.Specifications;
+﻿using Base.Database;
+using Base.Models;
 using FineBudget.Models;
-using Models.DbModels.MainModels;
 using System.Linq.Expressions;
 
-namespace FineBudget.Services.Specifications
+namespace FineBudget.Data
 {
     public class AccountSpecification: BaseSpecification<Account>
     {
