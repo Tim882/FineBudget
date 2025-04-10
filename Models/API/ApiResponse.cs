@@ -7,11 +7,13 @@ namespace Base.Models
         public string Message { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public int StatusCode { get; set; }
+        public T Data { get; set; }
+        public int ErrorCode { get; set; } = 0;
 
         // Успешный ответ
         public static ApiResponse<T> Ok(T data, string message = "")
         {
-            return new ApiSuccessResponse<T>
+            return new ApiResponse<T>
             {
                 Success = true,
                 Data = data,
@@ -22,7 +24,7 @@ namespace Base.Models
         // Ошибка
         public static ApiResponse<T> Fail(int errorCode, string message, string? description = null)
         {
-            return new ApiFailureResponse<T>
+            return new ApiResponse<T>
             {
                 Success = false,
                 Message = message,
