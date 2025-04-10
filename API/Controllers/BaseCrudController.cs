@@ -22,8 +22,9 @@ namespace Base.API
 
         [HttpGet]        
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ApiResponse<PaginatedResponse<TResponseDto>>>> Get(QueryParameters parameters)
+        public async Task<ActionResult<ApiResponse<PaginatedResponse<TResponseDto>>>> Get([FromQuery] QueryParameters _)
         {
+            var parameters = QueryParameters.Parse(Request);
             PaginatedResponse<TResponseDto> result = await _service.GetAsync(parameters);
             return Ok(ApiResponse<PaginatedResponse<TResponseDto>>.Ok(result));
         }
