@@ -18,7 +18,7 @@ namespace Base.Models
             return new ApiResponse<object>
             {
                 Message = errorCode.GetDescription(),
-                ErrorCode = (int)errorCode,
+                //ErrorCode = (int)errorCode,
                 Success = false,
             };
         }
