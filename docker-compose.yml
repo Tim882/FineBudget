@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: finebudget-db
+    environment:
+      POSTGRES_DB: finebudget
+      POSTGRES_USER: finebudget
+      POSTGRES_PASSWORD: finebudget123
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

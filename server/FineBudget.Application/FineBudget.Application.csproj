@@ -1,0 +1,72 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Ardalis.Specification" Version="8.0.0" />
+    <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="8.0.0" />
+    <PackageReference Include="FluentValidation" Version="11.9.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.9.0" />
+    <PackageReference Include="MediatR" Version="12.2.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FineBudget.Domain\FineBudget.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Common\" />
+    <None Remove="Common\Interfaces\" />
+    <None Remove="Common\Behaviors\" />
+    <None Remove="Specifications\" />
+    <None Remove="Categories\" />
+    <None Remove="Categories\Commands\" />
+    <None Remove="Categories\Commands\CreateCategory\" />
+    <None Remove="Categories\Commands\UpdateCategory\" />
+    <None Remove="Categories\Commands\DeleteCategory\" />
+    <None Remove="Categories\Queries\" />
+    <None Remove="Categories\Queries\GetCategories\" />
+    <None Remove="Categories\Queries\GetCategoryById\" />
+    <None Remove="Transactions\" />
+    <None Remove="Transactions\Queries\" />
+    <None Remove="Transactions\Queries\GetTransactionsByMonth\" />
+    <None Remove="Transactions\Commands\" />
+    <None Remove="Transactions\Commands\CreateTransaction\" />
+    <None Remove="Transactions\Commands\UpdateTransaction\" />
+    <None Remove="Transactions\Commands\DeleteTransaction\" />
+    <None Remove="Transactions\Queries\GetTransactionById\" />
+    <None Remove="Statistics\" />
+    <None Remove="Statistics\Queries\" />
+    <None Remove="Statistics\Queries\GetByCategory\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common\" />
+    <Folder Include="Common\Interfaces\" />
+    <Folder Include="Common\Behaviors\" />
+    <Folder Include="Specifications\" />
+    <Folder Include="Categories\" />
+    <Folder Include="Categories\Commands\" />
+    <Folder Include="Categories\Commands\CreateCategory\" />
+    <Folder Include="Categories\Commands\UpdateCategory\" />
+    <Folder Include="Categories\Commands\DeleteCategory\" />
+    <Folder Include="Categories\Queries\" />
+    <Folder Include="Categories\Queries\GetCategories\" />
+    <Folder Include="Categories\Queries\GetCategoryById\" />
+    <Folder Include="Transactions\" />
+    <Folder Include="Transactions\Queries\" />
+    <Folder Include="Transactions\Queries\GetTransactionsByMonth\" />
+    <Folder Include="Transactions\Commands\" />
+    <Folder Include="Transactions\Commands\CreateTransaction\" />
+    <Folder Include="Transactions\Commands\UpdateTransaction\" />
+    <Folder Include="Transactions\Commands\DeleteTransaction\" />
+    <Folder Include="Transactions\Queries\GetTransactionById\" />
+    <Folder Include="Statistics\" />
+    <Folder Include="Statistics\Queries\" />
+    <Folder Include="Statistics\Queries\GetByCategory\" />
+  </ItemGroup>
+</Project>

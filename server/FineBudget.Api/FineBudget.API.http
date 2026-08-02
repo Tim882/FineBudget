@@ -1,0 +1,7 @@
+﻿@FineBudget.API_HostAddress = http://localhost:5064
+
+GET {{FineBudget.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+
