@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
     <PackageReference Include="Ardalis.Specification" Version="8.0.0" />
     <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="8.0.0" />
     <PackageReference Include="FluentValidation" Version="11.9.0" />
@@ -43,6 +45,14 @@
     <None Remove="Statistics\" />
     <None Remove="Statistics\Queries\" />
     <None Remove="Statistics\Queries\GetByCategory\" />
+    <None Remove="Auth\" />
+    <None Remove="Auth\Commands\" />
+    <None Remove="Auth\Queries\" />
+    <None Remove="Auth\Queries\GetCurrentUser\" />
+    <None Remove="Auth\Commands\Register\" />
+    <None Remove="Auth\Commands\Login\" />
+    <None Remove="Auth\Commands\RefreshToken\" />
+    <None Remove="Auth\Commands\Logout\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common\" />
@@ -68,5 +78,13 @@
     <Folder Include="Statistics\" />
     <Folder Include="Statistics\Queries\" />
     <Folder Include="Statistics\Queries\GetByCategory\" />
+    <Folder Include="Auth\" />
+    <Folder Include="Auth\Commands\" />
+    <Folder Include="Auth\Queries\" />
+    <Folder Include="Auth\Queries\GetCurrentUser\" />
+    <Folder Include="Auth\Commands\Register\" />
+    <Folder Include="Auth\Commands\Login\" />
+    <Folder Include="Auth\Commands\RefreshToken\" />
+    <Folder Include="Auth\Commands\Logout\" />
   </ItemGroup>
 </Project>

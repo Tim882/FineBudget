@@ -11,14 +11,20 @@ namespace FineBudget.Application.Transactions.Queries.GetTransactionsByMonth
     : IRequestHandler<GetTransactionsByMonthQuery, List<TransactionDto>>
     {
         private readonly IAppDbContext _db;
+        private readonly ICurrentUserService _currentUser;
 
-        public GetTransactionsByMonthQueryHandler(IAppDbContext db) => _db = db;
+        public GetTransactionsByMonthQueryHandler(IAppDbContext db, ICurrentUserService currentUser)
+        {
+            _db = db;
+            _currentUser = currentUser;
+        }
 
         public async Task<List<TransactionDto>> Handle(
             GetTransactionsByMonthQuery request, CancellationToken ct)
         {
             return await _db.Transactions
                 .WithSpecification(new TransactionsByMonthSpec(request.Year, request.Month))
+                .Where(t => t.UserId == _currentUser.UserId)
                 .Select(t => new TransactionDto(
                     t.Id,
                     t.Amount,

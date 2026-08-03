@@ -10,13 +10,18 @@ namespace FineBudget.Application.Transactions.Queries.GetTransactionById
     : IRequestHandler<GetTransactionByIdQuery, TransactionDto?>
     {
         private readonly IAppDbContext _db;
+        private readonly ICurrentUserService _currentUser;
 
-        public GetTransactionByIdQueryHandler(IAppDbContext db) => _db = db;
+        public GetTransactionByIdQueryHandler(IAppDbContext db, ICurrentUserService currentUser)
+        {
+            _db = db;
+            _currentUser = currentUser;
+        }
 
         public async Task<TransactionDto?> Handle(GetTransactionByIdQuery request, CancellationToken ct)
         {
             return await _db.Transactions
-                .Where(t => t.Id == request.Id)
+                .Where(t => t.Id == request.Id && t.UserId == _currentUser.UserId)
                 .Select(t => new TransactionDto(
                     t.Id,
                     t.Amount,

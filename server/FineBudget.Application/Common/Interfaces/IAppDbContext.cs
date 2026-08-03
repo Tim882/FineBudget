@@ -7,6 +7,8 @@ namespace FineBudget.Application.Common.Interfaces
     {
         DbSet<Transaction> Transactions { get; }
         DbSet<Category> Categories { get; }
+        DbSet<User> Users { get; }
+        DbSet<RefreshToken> RefreshTokens { get; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }

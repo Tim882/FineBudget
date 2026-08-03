@@ -13,5 +13,25 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
+  seq:
+    image: datalust/seq:latest
+    container_name: finebudget-seq
+    environment:
+      - ACCEPT_EULA=Y
+    ports:
+      - "5341:5341"
+      - "8081:80"
+    volumes:
+      - seqdata:/data
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: finebudget-jaeger
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+      - "16686:16686"
+
 volumes:
   pgdata:
+  seqdata:

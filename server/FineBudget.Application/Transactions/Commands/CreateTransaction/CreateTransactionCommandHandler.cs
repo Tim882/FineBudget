@@ -10,8 +10,13 @@ namespace FineBudget.Application.Transactions.Commands.CreateTransaction
     public class CreateTransactionCommandHandler : IRequestHandler<CreateTransactionCommand, Guid>
     {
         private readonly IAppDbContext _db;
+        private readonly ICurrentUserService _currentUser;
 
-        public CreateTransactionCommandHandler(IAppDbContext db) => _db = db;
+        public CreateTransactionCommandHandler(IAppDbContext db, ICurrentUserService currentUser)
+        {
+            _db = db;
+            _currentUser = currentUser;
+        }
 
         public async Task<Guid> Handle(CreateTransactionCommand request, CancellationToken ct)
         {
@@ -21,12 +26,15 @@ namespace FineBudget.Application.Transactions.Commands.CreateTransaction
             if (!categoryExists)
                 throw new InvalidOperationException($"Категория с ID {request.CategoryId} не найдена");
 
+            var dateUtc = DateTime.SpecifyKind(request.Date, DateTimeKind.Utc);
+
             var transaction = new Transaction(
                 request.Amount,
                 request.Description,
-                request.Date,
+                dateUtc,
                 (TransactionType)request.Type,
-                request.CategoryId
+                request.CategoryId,
+                _currentUser.UserId
             );
 
             _db.Transactions.Add(transaction);

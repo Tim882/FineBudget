@@ -12,13 +12,19 @@ namespace FineBudget.Application.Statistics.Queries.GetByCategory
     : IRequestHandler<GetByCategoryQuery, List<CategoryStatDto>>
     {
         private readonly IAppDbContext _db;
+        private readonly ICurrentUserService _currentUser;
 
-        public GetByCategoryQueryHandler(IAppDbContext db) => _db = db;
+        public GetByCategoryQueryHandler(IAppDbContext db, ICurrentUserService currentUser)
+        {
+            _db = db;
+            _currentUser = currentUser;
+        }
 
         public async Task<List<CategoryStatDto>> Handle(
             GetByCategoryQuery request, CancellationToken ct)
         {
             var grouped = await _db.Transactions
+                .Where(c => c.UserId == _currentUser.UserId)
                 .Where(t => t.Date.Year == request.Year
                          && t.Date.Month == request.Month
                          && t.Type == TransactionType.Expense)
